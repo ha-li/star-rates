@@ -1,24 +1,24 @@
-// import React from 'react';
+import { useContext } from 'react';
 import { Color } from './Color';
+import { ColorContext } from '../main';
 
-interface ColorItem {
+/* interface ColorItem {
   id: string;
   title: string;
   rating: number;
   color: string;
-}
+} */
 
-interface ColorListProps {
+/* interface ColorListProps {
   colors?: ColorItem[];
   onRemove: (id: string) => void;
   onRateColor: (id: string, rating: number) => void;
-}
+} */
 
-export function ColorList({ 
-  colors = [], 
-  onRemove = () => {}, 
-  onRateColor = () => {} }: ColorListProps) {
+export function ColorList(){ 
   
+  const { colors } = useContext(ColorContext);
+
     if (!colors.length) return (<div>No Colors List. (Add a Color)</div>);
 
     return (
@@ -28,8 +28,8 @@ export function ColorList({
             <Color 
               key={color.id} 
               {...color} 
-              onRemove={() => onRemove(color.id)} 
-              onRate={onRateColor}
+              // onRemove={() => removeColor(color.id)} 
+              // onRate={rateColor}
               />)
         }
       </div>

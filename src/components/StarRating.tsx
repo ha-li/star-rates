@@ -1,16 +1,15 @@
-import { useState } from 'react';
 import { Star } from './Star';
 
 type StarRatingProps = {
-  earnedStars?: number;
   totalStars?: number;
   selectedStars: number;
+  onRate?: (rating: number) => void;
   //style?: React.CSSProperties;
 }
 
 const createArray = (length: number) => [...Array(length)];
 
-export function StarRating({ totalStars = 5, selectedStars = 0 }: StarRatingProps) {
+export function StarRating({ totalStars = 5, selectedStars, onRate = () => {} }: StarRatingProps) {
   // const [selectedStars, setSelectedStars] = useState(earnedStars);
   
   return ( 
@@ -19,7 +18,7 @@ export function StarRating({ totalStars = 5, selectedStars = 0 }: StarRatingProp
         <Star 
           key={i} 
           selected={selectedStars > i} 
-          // onSelect={() => setSelectedStars(i + 1)}
+          onSelect={() => onRate(i + 1)}
         />
       ))}
       <p>

@@ -10,16 +10,28 @@ interface ColorItem {
 
 interface ColorListProps {
   colors?: ColorItem[];
+  onRemove: (id: string) => void;
+  onRateColor: (id: string, rating: number) => void;
 }
 
-export function ColorList({ colors = [] }: ColorListProps) {
-  if (!colors.length) return (<div>No Colors List.</div>);
+export function ColorList({ 
+  colors = [], 
+  onRemove = () => {}, 
+  onRateColor = () => {} }: ColorListProps) {
+  
+    if (!colors.length) return (<div>No Colors List. (Add a Color)</div>);
 
-  return (
-    <div>
-      {
-        colors.map (color => <Color key={color.id} {...color} />)
-      }
-    </div>
+    return (
+      <div>
+        {
+          colors.map (color => 
+            <Color 
+              key={color.id} 
+              {...color} 
+              onRemove={() => onRemove(color.id)} 
+              onRate={onRateColor}
+              />)
+        }
+      </div>
   );
 }

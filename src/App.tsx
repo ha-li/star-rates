@@ -5,11 +5,24 @@ import { ColorList } from './components/ColorList';
 import './App.css'
 
 function App() {
+  // we can use imported data as the initial state
   const [colors, setColors] = useState(colorData);
+
+  const removeColor = (id: string) => {
+    const newColors = colors.filter(color => color.id !== id);
+    setColors(newColors);
+  };
+
+  const rateColor = (id: string, rating: number) => {
+    const newColors = colors.map( color => 
+      color.id === id ? { ...color, rating } : color    
+    );
+    setColors(newColors);
+  }
 
   return (
     <>
-      <ColorList colors={colors} />
+      <ColorList colors={colors} onRemove={removeColor} onRateColor={rateColor} />
       {/* 
       <StarRating 
         earnedStars={3} 
